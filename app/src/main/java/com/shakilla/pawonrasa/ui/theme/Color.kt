@@ -1,0 +1,46 @@
+package com.shakilla.pawonrasa.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val Cokelat = Color(0xFF5B2E22)
+val Terracotta = Color(0xFFC8643A)
+val Krem = Color(0xFFFBEBDD)
+val Zaitun = Color(0xFF7A8240)
+
+// ===== Mode Terang =====
+val LightPrimary = Color(0xFFC8643A)
+val LightOnPrimary = Color(0xFFFFFFFF)
+val LightPrimaryContainer = Color(0xFFF7D9C4)
+val LightOnPrimaryContainer = Color(0xFF3E1F16)
+val LightSecondary = Color(0xFF7A8240)
+val LightOnSecondary = Color(0xFFFFFFFF)
+val LightSecondaryContainer = Color(0xFFE3E8C4)
+val LightOnSecondaryContainer = Color(0xFF22260A)
+val LightTertiary = Color(0xFF5B2E22)
+val LightOnTertiary = Color(0xFFFFFFFF)
+val LightBackground = Color(0xFFFFF8F2)
+val LightOnBackground = Color(0xFF3E1F16)
+val LightSurface = Color(0xFFFFF8F2)
+val LightOnSurface = Color(0xFF3E1F16)
+val LightSurfaceVariant = Color(0xFFFBEBDD)
+val LightOnSurfaceVariant = Color(0xFF6B4A3D)
+val LightOutline = Color(0xFFB89A8A)
+
+// ===== Mode Gelap =====
+val DarkPrimary = Color(0xFFE88A5E)
+val DarkOnPrimary = Color(0xFF4A1E0B)
+val DarkPrimaryContainer = Color(0xFF8F4423)
+val DarkOnPrimaryContainer = Color(0xFFFFDCC9)
+val DarkSecondary = Color(0xFFB5BF74)
+val DarkOnSecondary = Color(0xFF2A3008)
+val DarkSecondaryContainer = Color(0xFF515A22)
+val DarkOnSecondaryContainer = Color(0xFFDDE6A0)
+val DarkTertiary = Color(0xFFE0B8A8)
+val DarkOnTertiary = Color(0xFF3E1F16)
+val DarkBackground = Color(0xFF1E1512)
+val DarkOnBackground = Color(0xFFF3E3D8)
+val DarkSurface = Color(0xFF261B17)
+val DarkOnSurface = Color(0xFFF3E3D8)
+val DarkSurfaceVariant = Color(0xFF4A3A33)
+val DarkOnSurfaceVariant = Color(0xFFD4BFB3)
+val DarkOutline = Color(0xFF9C857A)
