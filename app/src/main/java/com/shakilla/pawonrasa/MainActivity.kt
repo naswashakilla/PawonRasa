@@ -1,56 +1,26 @@
 package com.shakilla.pawonrasa
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import com.shakilla.pawonrasa.ui.HomeScreen
 import com.shakilla.pawonrasa.ui.theme.PawonRasaTheme
-import androidx.compose.ui.res.stringResource
-import com.shakilla.pawonrasa.R
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
-import com.shakilla.pawonrasa.data.MealRepository
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        lifecycleScope.launch {
-            Log.d("TEST", MealRepository.getCategories().toString())
-        }
-
         setContent {
-            var gelap by remember { mutableStateOf(false) }
-            PawonRasaTheme(darkTheme = gelap) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(24.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text("Pawon Rasa", style = MaterialTheme.typography.headlineLarge)
-                        Text("Sajian Lezat, Setiap Hari", style = MaterialTheme.typography.bodyLarge)
-                        Spacer(Modifier.height(16.dp))
-                        Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineLarge)
-                        Text(stringResource(R.string.tagline), style = MaterialTheme.typography.bodyLarge)
-
-                        Button(onClick = { gelap = !gelap }) {
-                            Text("Ganti Mode Terang/Gelap")
-                        }
-                    }
+            PawonRasaTheme {
+                Scaffold(containerColor = MaterialTheme.colorScheme.background) { innerPadding ->
+                    HomeScreen(
+                        onMealClick = { id -> Log.d("NAV", "Klik resep $id") },
+                        contentPadding = innerPadding
+                    )
                 }
             }
         }
