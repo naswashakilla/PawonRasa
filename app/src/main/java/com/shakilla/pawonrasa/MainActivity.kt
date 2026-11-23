@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.shakilla.pawonrasa.ui.theme.PawonRasaTheme
+import androidx.compose.ui.res.stringResource
+import com.shakilla.pawonrasa.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,9 @@ class MainActivity : ComponentActivity() {
                         Text("Pawon Rasa", style = MaterialTheme.typography.headlineLarge)
                         Text("Sajian Lezat, Setiap Hari", style = MaterialTheme.typography.bodyLarge)
                         Spacer(Modifier.height(16.dp))
+                        Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineLarge)
+                        Text(stringResource(R.string.tagline), style = MaterialTheme.typography.bodyLarge)
+
                         Button(onClick = { gelap = !gelap }) {
                             Text("Ganti Mode Terang/Gelap")
                         }

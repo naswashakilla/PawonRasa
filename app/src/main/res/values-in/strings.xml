@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Pawon Rasa</string>
+    <string name="tagline">Sajian Lezat, Setiap Hari</string>
+
+    <!-- Beranda -->
+    <string name="greeting">Halo,\nMasak apa hari ini?</string>
+    <string name="search_hint">Cari resep…</string>
+    <string name="weekly_banner_title">Resep Favorit Minggu Ini</string>
+    <string name="view_recipe">Lihat Resep</string>
+    <string name="categories">Kategori</string>
+    <string name="popular_recipes">Resep Populer</string>
+    <string name="see_all">Lihat Semua</string>
+
+    <!-- Navigasi -->
+    <string name="nav_home">Beranda</string>
+    <string name="nav_favorites">Favorit</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Detail resep -->
+    <string name="ingredients">Bahan-bahan</string>
+    <string name="instructions">Cara Membuat</string>
+    <string name="start_cooking">Mulai Memasak</string>
+    <string name="back">Kembali</string>
+    <string name="add_favorite">Tambah ke favorit</string>
+    <string name="remove_favorite">Hapus dari favorit</string>
+
+    <!-- Favorit -->
+    <string name="favorites_title">Favorit Saya</string>
+    <string name="favorites_empty">Belum ada resep favorit.</string>
+
+    <!-- Profil -->
+    <string name="profile_title">Profil</string>
+    <string name="profile_name">Pawonian</string>
+    <string name="profile_bio">Masak, Nikmati, Bagikan!</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="language">Bahasa</string>
+    <string name="language_english">Inggris</string>
+    <string name="language_indonesian">Indonesia</string>
+    <string name="about_app">Tentang Aplikasi</string>
+    <string name="about_desc">Pawon Rasa adalah aplikasi resep yang memakai data dari TheMealDB.</string>
+
+    <!-- Status -->
+    <string name="loading">Memuat…</string>
+    <string name="error_generic">Terjadi kesalahan. Periksa koneksi internetmu.</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="no_results">Resep tidak ditemukan.</string>
+</resources>
