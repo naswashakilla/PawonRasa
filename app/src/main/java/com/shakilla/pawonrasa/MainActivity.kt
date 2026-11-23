@@ -13,11 +13,20 @@ import androidx.compose.ui.unit.dp
 import com.shakilla.pawonrasa.ui.theme.PawonRasaTheme
 import androidx.compose.ui.res.stringResource
 import com.shakilla.pawonrasa.R
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.shakilla.pawonrasa.data.MealRepository
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        lifecycleScope.launch {
+            Log.d("TEST", MealRepository.getCategories().toString())
+        }
+
         setContent {
             var gelap by remember { mutableStateOf(false) }
             PawonRasaTheme(darkTheme = gelap) {
