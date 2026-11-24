@@ -36,6 +36,10 @@ import com.shakilla.pawonrasa.data.Category
 import com.shakilla.pawonrasa.data.Meal
 import com.shakilla.pawonrasa.viewmodel.HomeViewModel
 import com.shakilla.pawonrasa.viewmodel.UiState
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 
 private val fullWidth: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(maxLineSpan) }
 
@@ -74,14 +78,28 @@ fun HomeScreen(
 
         // Kolom cari
         item(span = fullWidth) {
-            OutlinedTextField(
+            TextField(
                 value = vm.query,
                 onValueChange = { vm.query = it },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.search_hint)) },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                trailingIcon = {
+                    if (vm.query.isNotBlank()) {
+                        IconButton(onClick = {
+                            vm.query = ""
+                            vm.loadMeals()
+                        }) { Icon(Icons.Default.Close, contentDescription = null) }
+                    }
+                },
                 singleLine = true,
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(28.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                ),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
                     vm.onSearch()
@@ -196,6 +214,7 @@ private fun FeaturedBanner(meal: Meal, onClick: () -> Unit) {
                 modifier = Modifier
                     .size(110.dp)
                     .clip(CircleShape)
+                    .border(3.dp, MaterialTheme.colorScheme.primaryContainer, CircleShape)
             )
         }
     }
@@ -212,9 +231,10 @@ private fun CategoryItem(category: Category, selected: Boolean, onClick: () -> U
             .padding(vertical = 4.dp)
     ) {
         Surface(
-            shape = CircleShape,
+            shape = RoundedCornerShape(20.dp),
             color = if (selected) MaterialTheme.colorScheme.primaryContainer
             else MaterialTheme.colorScheme.surfaceVariant,
+            border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null,
             modifier = Modifier.size(64.dp)
         ) {
             AsyncImage(

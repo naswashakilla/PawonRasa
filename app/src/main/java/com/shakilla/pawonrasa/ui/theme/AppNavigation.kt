@@ -21,9 +21,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.shakilla.pawonrasa.R
+import com.shakilla.pawonrasa.viewmodel.SettingsViewModel
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(settings: SettingsViewModel) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val route = backStackEntry?.destination?.route
@@ -68,15 +69,7 @@ fun AppNavigation() {
                 )
             }
             composable("profile") {
-                // Sementara: akan diganti layar Profil sungguhan
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(stringResource(R.string.profile_title))
-                }
+                ProfileScreen(settings = settings, contentPadding = innerPadding)
             }
             composable(
                 route = "detail/{id}",
