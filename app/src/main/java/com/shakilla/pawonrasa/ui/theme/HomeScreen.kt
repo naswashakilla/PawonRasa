@@ -1,5 +1,8 @@
 package com.shakilla.pawonrasa.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -14,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Restaurant
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -22,6 +27,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -36,10 +43,6 @@ import com.shakilla.pawonrasa.data.Category
 import com.shakilla.pawonrasa.data.Meal
 import com.shakilla.pawonrasa.viewmodel.HomeViewModel
 import com.shakilla.pawonrasa.viewmodel.UiState
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 
 private val fullWidth: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(maxLineSpan) }
 
@@ -61,19 +64,41 @@ fun HomeScreen(
         contentPadding = PaddingValues(
             start = contentPadding.calculateStartPadding(dir) + 16.dp,
             end = contentPadding.calculateEndPadding(dir) + 16.dp,
-            top = contentPadding.calculateTopPadding() + 16.dp,
+            top = contentPadding.calculateTopPadding() + 12.dp,
             bottom = contentPadding.calculateBottomPadding() + 16.dp
         ),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        // Sapaan
+        // Header
         item(span = fullWidth) {
-            Text(
-                text = stringResource(R.string.greeting),
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.app_name),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = stringResource(R.string.greeting),
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    modifier = Modifier.size(48.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            Icons.Default.Restaurant,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            }
         }
 
         // Kolom cari
@@ -121,15 +146,11 @@ fun HomeScreen(
 
         // Kategori
         item(span = fullWidth) {
-            Text(
-                text = stringResource(R.string.categories),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+            SectionHeader(title = stringResource(R.string.categories))
         }
         item(span = fullWidth) {
             when (val c = categories) {
-                is UiState.Success -> LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                is UiState.Success -> LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     items(c.data, key = { it.idCategory }) { cat ->
                         CategoryItem(
                             category = cat,
@@ -145,10 +166,9 @@ fun HomeScreen(
 
         // Resep populer
         item(span = fullWidth) {
-            Text(
-                text = stringResource(R.string.popular_recipes),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground
+            SectionHeader(
+                title = stringResource(R.string.popular_recipes),
+                badge = if (vm.query.isBlank()) vm.selectedCategory else "\"${vm.query.trim()}\""
             )
         }
         when (val m = meals) {
@@ -159,7 +179,8 @@ fun HomeScreen(
                     item(span = fullWidth) {
                         Text(
                             text = stringResource(R.string.no_results),
-                            color = MaterialTheme.colorScheme.onBackground
+                            color = MaterialTheme.colorScheme.onBackground,
+                            modifier = Modifier.padding(vertical = 16.dp)
                         )
                     }
                 } else {
@@ -173,49 +194,85 @@ fun HomeScreen(
 }
 
 @Composable
+private fun SectionHeader(title: String, badge: String? = null) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.weight(1f, fill = badge == null)
+        )
+        if (badge != null) {
+            Spacer(Modifier.width(8.dp))
+            Surface(
+                shape = RoundedCornerShape(50),
+                color = MaterialTheme.colorScheme.primaryContainer
+            ) {
+                Text(
+                    text = badge,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
 private fun FeaturedBanner(meal: Meal, onClick: () -> Unit) {
     Card(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+        shape = RoundedCornerShape(28.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+        Box(
+            modifier = Modifier
+                .background(
+                    Brush.linearGradient(listOf(Color(0xFFD97245), Color(0xFF9C4524)))
+                )
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.weekly_banner_title),
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
-                Text(
-                    text = meal.name,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(Modifier.height(12.dp))
-                Button(
-                    onClick = onClick,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            Row(
+                modifier = Modifier.padding(20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.weekly_banner_title),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.White.copy(alpha = 0.85f)
                     )
-                ) { Text(stringResource(R.string.view_recipe)) }
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = meal.name,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color.White,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(Modifier.height(14.dp))
+                    Button(
+                        onClick = onClick,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFBEBDD),
+                            contentColor = Color(0xFF5B2E22)
+                        )
+                    ) { Text(stringResource(R.string.view_recipe)) }
+                }
+                Spacer(Modifier.width(12.dp))
+                AsyncImage(
+                    model = meal.thumb,
+                    contentDescription = meal.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(112.dp)
+                        .clip(CircleShape)
+                        .border(4.dp, Color(0xFFFBEBDD), CircleShape)
+                )
             }
-            Spacer(Modifier.width(12.dp))
-            AsyncImage(
-                model = meal.thumb,
-                contentDescription = meal.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(110.dp)
-                    .clip(CircleShape)
-                    .border(3.dp, MaterialTheme.colorScheme.primaryContainer, CircleShape)
-            )
         }
     }
 }
@@ -225,7 +282,7 @@ private fun CategoryItem(category: Category, selected: Boolean, onClick: () -> U
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .width(78.dp)
+            .width(76.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = onClick)
             .padding(vertical = 4.dp)
@@ -243,6 +300,7 @@ private fun CategoryItem(category: Category, selected: Boolean, onClick: () -> U
                 modifier = Modifier.padding(8.dp)
             )
         }
+        Spacer(Modifier.height(4.dp))
         Text(
             text = category.strCategory,
             style = MaterialTheme.typography.labelSmall,

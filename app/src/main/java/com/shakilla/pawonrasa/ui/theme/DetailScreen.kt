@@ -3,11 +3,15 @@ package com.shakilla.pawonrasa.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,12 +27,14 @@ import coil.compose.AsyncImage
 import com.shakilla.pawonrasa.R
 import com.shakilla.pawonrasa.data.Meal
 import com.shakilla.pawonrasa.viewmodel.DetailViewModel
+import com.shakilla.pawonrasa.viewmodel.SavedViewModel
 import com.shakilla.pawonrasa.viewmodel.UiState
 
 @Composable
 fun DetailScreen(
     id: String,
     onBack: () -> Unit,
+    saved: SavedViewModel,
     contentPadding: PaddingValues = PaddingValues(),
     vm: DetailViewModel = viewModel()
 ) {
@@ -56,6 +62,48 @@ fun DetailScreen(
                     )
                 } else {
                     MealContent(meal, contentPadding)
+
+                    // Tombol favorit dan koleksi
+                    val isFav = saved.isFavorite(meal.id)
+                    val inCol = saved.inCollection(meal.id)
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .statusBarsPadding()
+                            .padding(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        IconButton(
+                            onClick = { saved.toggleFavorite(meal) },
+                            modifier = Modifier.background(
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.75f),
+                                CircleShape
+                            )
+                        ) {
+                            Icon(
+                                imageVector = if (isFav) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                contentDescription = stringResource(
+                                    if (isFav) R.string.remove_favorite else R.string.add_favorite
+                                ),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        IconButton(
+                            onClick = { saved.toggleCollection(meal) },
+                            modifier = Modifier.background(
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.75f),
+                                CircleShape
+                            )
+                        ) {
+                            Icon(
+                                imageVector = if (inCol) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
+                                contentDescription = stringResource(
+                                    if (inCol) R.string.remove_from_collection else R.string.save_to_collection
+                                ),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                 }
             }
         }

@@ -44,4 +44,16 @@
     <string name="error_generic">Something went wrong. Check your connection.</string>
     <string name="retry">Try Again</string>
     <string name="no_results">No recipes found.</string>
+
+    <!-- Koleksi -->
+    <string name="nav_collections">Collections</string>
+    <string name="collections_title">My Collections</string>
+    <string name="collections_empty">No saved recipes yet.</string>
+    <string name="category_all">All</string>
+    <string name="save_to_collection">Save to collection</string>
+    <string name="remove_from_collection">Remove from collection</string>
+    <string name="recipes_count">%d recipes</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="app_version">Version 1.0</string>
 </resources>

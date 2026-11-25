@@ -20,7 +20,8 @@ fun MealCard(meal: MealSummary, onClick: () -> Unit, modifier: Modifier = Modifi
     Card(
         onClick = onClick,
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(22.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
@@ -32,15 +33,16 @@ fun MealCard(meal: MealSummary, onClick: () -> Unit, modifier: Modifier = Modifi
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1.2f)
+                    .aspectRatio(1.15f)
             )
             Text(
                 text = meal.strMeal,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
+                minLines = 2,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)
             )
         }
     }

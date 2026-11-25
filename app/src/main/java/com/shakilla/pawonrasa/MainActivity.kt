@@ -13,6 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.shakilla.pawonrasa.ui.AppNavigation
 import com.shakilla.pawonrasa.ui.SplashScreen
 import com.shakilla.pawonrasa.ui.theme.PawonRasaTheme
+import com.shakilla.pawonrasa.viewmodel.SavedViewModel
 import com.shakilla.pawonrasa.viewmodel.SettingsViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             val settings: SettingsViewModel = viewModel()
+            val saved: SavedViewModel = viewModel()
             val dark = settings.darkMode ?: isSystemInDarkTheme()
             var showSplash by rememberSaveable { mutableStateOf(true) }
 
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 if (showSplash) {
                     SplashScreen(onFinished = { showSplash = false })
                 } else {
-                    AppNavigation(settings)
+                    AppNavigation(settings, saved)
                 }
             }
         }

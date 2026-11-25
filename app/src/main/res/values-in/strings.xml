@@ -44,4 +44,16 @@
     <string name="error_generic">Terjadi kesalahan. Periksa koneksi internetmu.</string>
     <string name="retry">Coba Lagi</string>
     <string name="no_results">Resep tidak ditemukan.</string>
+
+    <!-- Koleksi -->
+    <string name="nav_collections">Koleksi</string>
+    <string name="collections_title">Koleksi Saya</string>
+    <string name="collections_empty">Belum ada resep yang disimpan.</string>
+    <string name="category_all">Semua</string>
+    <string name="save_to_collection">Simpan ke koleksi</string>
+    <string name="remove_from_collection">Hapus dari koleksi</string>
+    <string name="recipes_count">%d resep</string>
+
+    <string name="settings_title">Pengaturan</string>
+    <string name="app_version">Versi 1.0</string>
 </resources>

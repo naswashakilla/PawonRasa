@@ -1,19 +1,20 @@
 package com.shakilla.pawonrasa.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,42 +22,43 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.shakilla.pawonrasa.R
+import com.shakilla.pawonrasa.viewmodel.SavedViewModel
 import com.shakilla.pawonrasa.viewmodel.SettingsViewModel
 
+private data class Tab(val route: String, val icon: ImageVector, val label: Int)
+
 @Composable
-fun AppNavigation(settings: SettingsViewModel) {
+fun AppNavigation(settings: SettingsViewModel, saved: SavedViewModel) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val route = backStackEntry?.destination?.route
-    val showBottomBar = route == "home" || route == "profile"
+
+    val tabs = listOf(
+        Tab("home", Icons.Default.Home, R.string.nav_home),
+        Tab("favorites", Icons.Default.Favorite, R.string.nav_favorites),
+        Tab("collections", Icons.Default.Bookmark, R.string.nav_collections),
+        Tab("profile", Icons.Default.Person, R.string.nav_profile)
+    )
+    val showBottomBar = tabs.any { it.route == route }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = {
             if (showBottomBar) {
                 NavigationBar {
-                    NavigationBarItem(
-                        selected = route == "home",
-                        onClick = {
-                            navController.navigate("home") {
-                                popUpTo("home") { inclusive = false }
-                                launchSingleTop = true
-                            }
-                        },
-                        icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                        label = { Text(stringResource(R.string.nav_home)) }
-                    )
-                    NavigationBarItem(
-                        selected = route == "profile",
-                        onClick = {
-                            navController.navigate("profile") {
-                                popUpTo("home")
-                                launchSingleTop = true
-                            }
-                        },
-                        icon = { Icon(Icons.Default.Person, contentDescription = null) },
-                        label = { Text(stringResource(R.string.nav_profile)) }
-                    )
+                    tabs.forEach { tab ->
+                        NavigationBarItem(
+                            selected = route == tab.route,
+                            onClick = {
+                                navController.navigate(tab.route) {
+                                    popUpTo("home")
+                                    launchSingleTop = true
+                                }
+                            },
+                            icon = { Icon(tab.icon, contentDescription = null) },
+                            label = { Text(stringResource(tab.label)) }
+                        )
+                    }
                 }
             }
         }
@@ -68,9 +70,28 @@ fun AppNavigation(settings: SettingsViewModel) {
                     contentPadding = innerPadding
                 )
             }
-            composable("profile") {
-                ProfileScreen(settings = settings, contentPadding = innerPadding)
+            composable("favorites") {
+                SavedScreen(
+                    title = stringResource(R.string.favorites_title),
+                    emptyText = stringResource(R.string.favorites_empty),
+                    items = saved.items.filter { it.isFavorite },
+                    showCategoryFilter = false,
+                    onMealClick = { id -> navController.navigate("detail/$id") },
+                    contentPadding = innerPadding
+                )
             }
+            composable("collections") {
+                SavedScreen(
+                    title = stringResource(R.string.collections_title),
+                    emptyText = stringResource(R.string.collections_empty),
+                    items = saved.items.filter { it.inCollection },
+                    showCategoryFilter = true,
+                    onMealClick = { id -> navController.navigate("detail/$id") },
+                    contentPadding = innerPadding
+                )
+            }
+            composable("profile") {
+                ProfileScreen(settings = settings, saved = saved, contentPadding = innerPadding)            }
             composable(
                 route = "detail/{id}",
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -78,6 +99,7 @@ fun AppNavigation(settings: SettingsViewModel) {
                 DetailScreen(
                     id = entry.arguments?.getString("id").orEmpty(),
                     onBack = { navController.popBackStack() },
+                    saved = saved,
                     contentPadding = innerPadding
                 )
             }
