@@ -45,4 +45,8 @@ class SavedViewModel(app: Application) : AndroidViewModel(app) {
 
     fun isFavorite(id: String) = items.any { it.id == id && it.isFavorite }
     fun inCollection(id: String) = items.any { it.id == id && it.inCollection }
+    fun clearAll() {
+        items = emptyList()
+        prefs.edit().remove("items").apply()
+    }
 }

@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -37,8 +37,7 @@ fun AppNavigation(settings: SettingsViewModel, saved: SavedViewModel) {
         Tab("home", Icons.Default.Home, R.string.nav_home),
         Tab("favorites", Icons.Default.Favorite, R.string.nav_favorites),
         Tab("collections", Icons.Default.Bookmark, R.string.nav_collections),
-        Tab("profile", Icons.Default.Person, R.string.nav_profile)
-    )
+        Tab("settings", Icons.Default.Settings, R.string.nav_settings)    )
     val showBottomBar = tabs.any { it.route == route }
 
     Scaffold(
@@ -90,8 +89,9 @@ fun AppNavigation(settings: SettingsViewModel, saved: SavedViewModel) {
                     contentPadding = innerPadding
                 )
             }
-            composable("profile") {
-                ProfileScreen(settings = settings, saved = saved, contentPadding = innerPadding)            }
+            composable("settings") {
+                SettingsScreen(settings = settings, saved = saved, contentPadding = innerPadding)
+            }
             composable(
                 route = "detail/{id}",
                 arguments = listOf(navArgument("id") { type = NavType.StringType })

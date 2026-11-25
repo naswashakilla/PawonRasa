@@ -56,4 +56,19 @@
 
     <string name="settings_title">Pengaturan</string>
     <string name="app_version">Versi 1.0</string>
+
+    <string name="nav_settings">Pengaturan</string>
+    <string name="settings_subtitle">Atur aplikasi sesuai seleramu</string>
+    <string name="appearance">Tampilan</string>
+    <string name="theme_system">Sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="saved_data">Data Tersimpan</string>
+    <string name="saved_summary">%1$d favorit · %2$d di koleksi</string>
+    <string name="clear_saved">Hapus semua resep tersimpan</string>
+    <string name="clear_title">Hapus semua resep tersimpan?</string>
+    <string name="clear_message">Semua favorit dan koleksi akan dihapus. Tindakan ini tidak bisa dibatalkan.</string>
+    <string name="cancel">Batal</string>
+    <string name="delete">Hapus</string>
+    <string name="data_source">Sumber data</string>
 </resources>

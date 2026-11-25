@@ -13,16 +13,20 @@ class SettingsViewModel(app: Application) : AndroidViewModel(app) {
 
     private val prefs = app.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
+    // null = ikuti sistem, true = gelap, false = terang
     var darkMode by mutableStateOf<Boolean?>(
         if (prefs.contains("dark")) prefs.getBoolean("dark", false) else null
     )
         private set
 
-    fun setDark(value: Boolean) {
+    fun setThemeMode(value: Boolean?) {
         darkMode = value
-        prefs.edit().putBoolean("dark", value).apply()
+        prefs.edit().apply {
+            if (value == null) remove("dark") else putBoolean("dark", value)
+        }.apply()
     }
 
+    // tag: "en" atau "id"
     fun setLanguage(tag: String) {
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
     }
