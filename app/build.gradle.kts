@@ -64,4 +64,5 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.mlkit:translate:17.0.3")
 }

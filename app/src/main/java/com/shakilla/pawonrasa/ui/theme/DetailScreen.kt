@@ -152,17 +152,17 @@ private fun MealContent(meal: Meal, contentPadding: PaddingValues) {
         item {
             Column(Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
                 Text(
-                    text = meal.name,
+                    text = translated(meal.name),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(Modifier.height(8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     if (meal.category.isNotBlank()) {
-                        AssistChip(onClick = {}, label = { Text(meal.category) })
+                        AssistChip(onClick = {}, label = { Text(translated(meal.category)) })
                     }
                     if (meal.area.isNotBlank()) {
-                        AssistChip(onClick = {}, label = { Text(meal.area) })
+                        AssistChip(onClick = {}, label = { Text(translated(meal.area)) })
                     }
                 }
             }
@@ -187,7 +187,7 @@ private fun MealContent(meal: Meal, contentPadding: PaddingValues) {
                 )
                 Spacer(Modifier.width(12.dp))
                 Text(
-                    text = "${ing.measure} ${ing.name}".trim(),
+                    text = translated("${ing.measure} ${ing.name}".trim()),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -221,7 +221,7 @@ private fun MealContent(meal: Meal, contentPadding: PaddingValues) {
                 }
                 Spacer(Modifier.width(12.dp))
                 Text(
-                    text = step,
+                    text = translated(step),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )

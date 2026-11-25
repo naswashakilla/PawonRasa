@@ -36,7 +36,7 @@ fun MealCard(meal: MealSummary, onClick: () -> Unit, modifier: Modifier = Modifi
                     .aspectRatio(1.15f)
             )
             Text(
-                text = meal.strMeal,
+                text = translated(meal.strMeal),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 minLines = 2,
