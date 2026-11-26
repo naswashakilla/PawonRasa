@@ -143,9 +143,9 @@ Menggunakan [TheMealDB](https://www.themealdb.com/api.php) dengan key uji `1`.
 
 <!-- Tambahkan screenshot di folder screenshots/ lalu ganti nama file di bawah -->
 
-| Beranda | Detail | Koleksi | Pengaturan |
-|---|---|---|---|
-| ![Beranda](screenshots/home.png) | ![Detail](screenshots/detail.png) | ![Koleksi](screenshots/collections.png) | ![Pengaturan](screenshots/settings.png) |
+| Beranda | Detail | Koleksi | Pengaturan | Favorite |
+|---|---|---|---|---|
+| ![Beranda](screenshots/home.png) | ![Detail](screenshots/detail.png) | ![Koleksi](screenshots/collections.png) | ![Pengaturan](screenshots/settings.png) | ![Favorite](screenshots/favorite.png)|
 
 ---
 
