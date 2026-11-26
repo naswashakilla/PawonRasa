@@ -1,4 +1,4 @@
-# 🍲 Pawon Rasa
+# Pawon Rasa
 
 **Sajian Lezat, Setiap Hari**
 
@@ -8,20 +8,20 @@ Proyek ini dibuat sebagai tugas individu: *Membuat Aplikasi Android yang Menerap
 
 ---
 
-## ✨ Fitur
+## Fitur
 
 - **Splash screen** dengan nama aplikasi, tagline, dan loading bar
 - **Beranda**: sapaan, kolom pencarian, banner resep acak, filter kategori, dan daftar resep dalam bentuk card
 - **Pencarian resep** berdasarkan kata kunci
 - **Detail resep**: foto, kategori, asal masakan, bahan-bahan, dan langkah pembuatan bernomor
-- **Favorit (♥)** dan **Koleksi (🔖)**: simpan resep, koleksi dapat difilter berdasarkan kategori, data tersimpan permanen
+- **Favorit** dan **Koleksi**: simpan resep, koleksi dapat difilter berdasarkan kategori, data tersimpan permanen
 - **Pengaturan**: pilihan tema (Sistem / Terang / Gelap), pilihan bahasa, ringkasan data tersimpan, dan tombol hapus data
 - **Multi bahasa**: antarmuka Indonesia dan Inggris, data API diterjemahkan otomatis ke bahasa Indonesia
 - **Penanganan error**: pesan dan tombol "Coba Lagi" saat tidak ada internet, tanpa crash
 
 ---
 
-## 📋 Pemenuhan Ketentuan Tugas
+## Pemenuhan Ketentuan Tugas
 
 | Ketentuan | Penerapan |
 |---|---|
@@ -35,7 +35,7 @@ Proyek ini dibuat sebagai tugas individu: *Membuat Aplikasi Android yang Menerap
 
 ---
 
-## 🛠️ Teknologi
+## Teknologi
 
 | Komponen | Fungsi |
 |---|---|
@@ -52,12 +52,12 @@ Proyek ini dibuat sebagai tugas individu: *Membuat Aplikasi Android yang Menerap
 
 ---
 
-## 🏗️ Arsitektur
+## Arsitektur
 
 Aplikasi memakai pola **MVVM** sederhana:
 
 ```
-TheMealDB API → Retrofit → MealRepository → ViewModel → Compose UI
+TheMealDB API -> Retrofit -> MealRepository -> ViewModel -> Compose UI
 ```
 
 1. `MealApi` mendefinisikan endpoint.
@@ -97,7 +97,7 @@ app/src/main/java/com/shakilla/pawonrasa/
 
 ---
 
-## 🌐 API
+## API
 
 Menggunakan [TheMealDB](https://www.themealdb.com/api.php) dengan key uji `1`.
 
@@ -111,7 +111,7 @@ Menggunakan [TheMealDB](https://www.themealdb.com/api.php) dengan key uji `1`.
 
 ---
 
-## 🚀 Cara Menjalankan
+## Cara Menjalankan
 
 **Prasyarat**
 - Android Studio versi terbaru
@@ -125,13 +125,13 @@ Menggunakan [TheMealDB](https://www.themealdb.com/api.php) dengan key uji `1`.
    ```
 2. Buka folder proyek di Android Studio.
 3. Tunggu proses **Gradle Sync** selesai.
-4. Jalankan aplikasi (tombol ▶).
+4. Jalankan aplikasi (tombol Run).
 
 > Saat pertama kali memakai bahasa Indonesia, aplikasi mengunduh model terjemahan (±30 MB). Pastikan perangkat online. Setelah itu terjemahan juga berjalan offline.
 
 ---
 
-## ⚠️ Catatan
+## Catatan
 
 - TheMealDB hanya menyediakan data berbahasa Inggris. Teks antarmuka memakai resource `strings.xml`, sedangkan nama resep, bahan, dan langkah diterjemahkan otomatis oleh ML Kit, sehingga hasilnya adalah terjemahan mesin dan bisa kurang sempurna.
 - Pencarian resep sebaiknya memakai kata kunci bahasa Inggris (misalnya `chicken`).
@@ -139,7 +139,7 @@ Menggunakan [TheMealDB](https://www.themealdb.com/api.php) dengan key uji `1`.
 
 ---
 
-## 📸 Tampilan
+## Tampilan
 
 <!-- Tambahkan screenshot di folder screenshots/ lalu ganti nama file di bawah -->
 
@@ -149,7 +149,7 @@ Menggunakan [TheMealDB](https://www.themealdb.com/api.php) dengan key uji `1`.
 
 ---
 
-## 👩‍💻 Pembuat
+## Pembuat
 
 **Shakilla**
 Tugas Pemrograman Mobile, November – Desember 2026
